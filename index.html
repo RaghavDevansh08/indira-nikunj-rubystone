@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Indira Nikunj Rubystone Exotic — a refined stay, dining and celebration destination in Rishikesh.">
+  <title>Indira Nikunj Rubystone Exotic | Rishikesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/rubystone-logo.png">
+  <link rel="stylesheet" href="style.css">
+<style>
+/* Welcome enquiry popup */
+.enquiry-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(18, 10, 12, 0.68);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+.enquiry-popup-overlay.is-open { display: flex; }
+.enquiry-popup {
+  position: relative;
+  width: min(600px, 100%);
+  max-height: min(82vh, 680px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 28px 80px rgba(0,0,0,.30);
+  animation: enquiryPopupIn .28s ease-out;
+}
+@keyframes enquiryPopupIn {
+  from { opacity: 0; transform: translateY(18px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.enquiry-popup-head {
+  padding: 20px 24px 12px;
+  border-bottom: 1px solid #eee4e2;
+}
+.enquiry-popup-head h2 {
+  margin: 0 38px 5px 0;
+  color: #790019;
+  font-family: inherit;
+  font-size: clamp(20px, 2.6vw, 26px);
+}
+.enquiry-popup-head p {
+  margin: 0;
+  color: #666;
+  line-height: 1.4;
+  font-size: 13px;
+}
+.enquiry-popup-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #fff;
+  color: #555;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+.enquiry-popup-close:hover { background: #f7f2f2; color: #790019; }
+.enquiry-popup-body { padding: 16px 24px 22px; }
+.enquiry-popup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+.enquiry-popup-field { display: flex; flex-direction: column; gap: 7px; }
+.enquiry-popup-field.full { grid-column: 1 / -1; }
+.enquiry-popup-field label {
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #555;
+}
+.enquiry-popup-field input,
+.enquiry-popup-field select,
+.enquiry-popup-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d8cdca;
+  border-radius: 6px;
+  background: #fff;
+  padding: 9px 11px;
+  font: inherit;
+  color: #222;
+  outline: none;
+}
+.enquiry-popup-field input:focus,
+.enquiry-popup-field select:focus,
+.enquiry-popup-field textarea:focus {
+  border-color: #8a1027;
+  box-shadow: 0 0 0 3px rgba(138,16,39,.08);
+}
+.enquiry-popup-field textarea { min-height: 70px; resize: vertical; }
+.enquiry-popup-submit {
+  width: 100%;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 7px;
+  padding: 11px 16px;
+  background: #790019;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+.enquiry-popup-submit:hover { background: #620015; }
+body.enquiry-popup-open { overflow: hidden; }
+
+@media (max-width: 640px) {
+  .enquiry-popup-overlay { padding: 12px; }
+  .enquiry-popup-head { padding: 16px 18px 10px; }
+  .enquiry-popup-body { padding: 12px 18px 18px; }
+  .enquiry-popup-grid { grid-template-columns: 1fr; }
+  .enquiry-popup-field.full { grid-column: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="topbar">
+    <div>Unit No. 46, Sivananda Ashram Road, Shisham Jhari, Muni Ki Reti, Rishikesh, Uttarakhand 249137</div>
+    <div class="top-contact">
+      <a href="tel:+919821005921">+91 98210 05921</a>
+      <a href="mailto:info@rubystonehospitality.com">info@rubystonehospitality.com</a>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a class="brand" href="#top" aria-label="Indira Nikunj Rubystone Exotic home">
+      <img src="assets/rubystone-logo.png" alt="Indira Nikunj Rubystone Exotic">
+    </a>
+    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a class="active" href="#top">Home</a>
+      <a href="#about">About</a>
+      <a href="#stay">Stay</a>
+      <a href="#dining">Dining</a>
+      <a href="#weddings">Weddings</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-cta open-enquiry-popup" href="#enquiry">Enquire Now</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <img class="hero-bg" src="assets/wedding-02.jpg" alt="Rooftop celebration with mountain views">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="eyebrow">RISHIKESH • STAY • DINE • CELEBRATE</p>
+      <h1>A beautiful setting<br><em>for every occasion.</em></h1>
+      <p class="hero-copy">Experience warm hospitality, mountain views, thoughtful stays and memorable celebrations at Indira Nikunj Rubystone Exotic.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary open-enquiry-popup" href="#enquiry">Plan Your Stay</a>
+        <a class="btn btn-outline" href="#weddings">Explore Weddings</a>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#about">Scroll to explore <span>↓</span></a>
+  </section>
+
+  <section class="quick-features">
+    <div><strong>42</strong><span>Rooms</span></div>
+    <div><strong>01</strong><span>Restaurant</span></div>
+    <div><strong>01</strong><span>Banquet Hall</span></div>
+    <div><strong>01</strong><span>Yoga Hall</span></div>
+    <div><strong>02</strong><span>Open Terraces</span></div>
+    <div><strong>360°</strong><span>Mountain Views</span></div>
+  </section>
+
+  <section class="section about" id="about">
+    <div class="section-tag">ABOUT RUBYSTONE</div>
+    <div class="split">
+      <div class="copy">
+        <h2>Where Rishikesh<br><em>meets warm hospitality.</em></h2>
+        <p>Indira Nikunj Rubystone Exotic brings together comfortable accommodation, dining, wellness and celebration spaces in the heart of Rishikesh.</p>
+        <p>Set around Shisham Jhari and close to the Ganga, the property gives guests a convenient base for exploring the city's spiritual landmarks while enjoying a relaxed stay.</p>
+        <a class="text-link" href="#stay">Discover the property <span>→</span></a>
+      </div>
+      <div class="about-image">
+        <img src="assets/property.jpg" alt="Rubystone property in Rishikesh" loading="lazy">
+        <div class="image-note">A stay shaped by the mountains, the Ganga and the spirit of Rishikesh.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section spaces" id="stay">
+    <div class="section-tag">THE RUBYSTONE EXPERIENCE</div>
+    <h2>Stay <span>•</span> Dine <span>•</span> Celebrate</h2>
+    <div class="space-grid">
+      <article class="space-card">
+        <img src="assets/room.jpg" alt="Guest room" loading="lazy">
+        <div class="space-body">
+          <p class="mini">STAY</p>
+          <h3>Rooms & Comfort</h3>
+          <p>Relax in a comfortable base after a day around Rishikesh.</p>
+          <a class="open-enquiry-popup" href="#enquiry">Plan your stay →</a>
+        </div>
+      </article>
+      <article class="space-card" id="dining">
+        <img src="assets/dining.jpg" alt="Dining space" loading="lazy">
+        <div class="space-body">
+          <p class="mini">DINE</p>
+          <h3>Restaurant</h3>
+          <p>A dedicated dining space for everyday meals and special moments.</p>
+          <a class="open-enquiry-popup" href="#enquiry">Ask about dining →</a>
+        </div>
+      </article>
+      <article class="space-card">
+        <img src="assets/wedding-09.jpg" alt="Celebration setup" loading="lazy">
+        <div class="space-body">
+          <p class="mini">CELEBRATE</p>
+          <h3>Banquets & Events</h3>
+          <p>Terraces and celebration setups designed around your occasion.</p>
+          <a href="#weddings">View celebrations →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section wedding-section" id="weddings">
+    <div class="section-heading-row">
+      <div>
+        <div class="section-tag">WEDDINGS & CELEBRATIONS</div>
+        <h2>Moments made<br><em>to be remembered.</em></h2>
+      </div>
+      <p>Browse the celebration setups and décor captured at Rubystone. Tap any image to view it larger.</p>
+    </div>
+
+    <div class="wedding-feature">
+      <img src="assets/wedding-02.jpg" alt="Rooftop wedding setup" loading="lazy">
+      <div class="wedding-feature-copy">
+        <p class="mini">OPEN TERRACES • MOUNTAIN BACKDROP</p>
+        <h3>Celebrate with Rishikesh in the frame.</h3>
+        <p>From colourful daytime ceremonies to intimate evening celebrations, the terrace setting creates a distinctive backdrop for your event.</p>
+        <a class="btn btn-primary open-enquiry-popup" href="#enquiry">Enquire for an Event</a>
+      </div>
+    </div>
+
+    <div class="gallery-grid wedding-grid" id="gallery">
+      <button class="gallery-item" data-full="assets/wedding-01.jpg"><img src="assets/wedding-01.jpg" alt="Wedding setup 1" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-03.jpg"><img src="assets/wedding-03.jpg" alt="Wedding setup 2" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-04.jpg"><img src="assets/wedding-04.jpg" alt="Wedding setup 3" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-05.jpg"><img src="assets/wedding-05.jpg" alt="Wedding setup 4" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-06.jpg"><img src="assets/wedding-06.jpg" alt="Wedding setup 5" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-07.jpg"><img src="assets/wedding-07.jpg" alt="Wedding setup 6" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-08.jpg"><img src="assets/wedding-08.jpg" alt="Wedding setup 7" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-09.jpg"><img src="assets/wedding-09.jpg" alt="Wedding setup 8" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-10.jpg"><img src="assets/wedding-10.jpg" alt="Wedding setup 9" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-11.jpg"><img src="assets/wedding-11.jpg" alt="Wedding setup 10" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-12.jpg"><img src="assets/wedding-12.jpg" alt="Wedding setup 11" loading="lazy"></button>
+      <button class="gallery-item" data-full="assets/wedding-13.jpg"><img src="assets/wedding-13.jpg" alt="Wedding setup 12" loading="lazy"></button>
+      <button class="gallery-item extra-image" data-full="assets/wedding-14.jpg"><img src="assets/wedding-14.jpg" alt="Wedding setup 13" loading="lazy"></button>
+    </div>
+
+    <div class="center"><button class="btn btn-dark" id="seeMoreBtn">See More Images</button></div>
+  </section>
+
+  <section class="section highlights">
+    <div class="section-tag">WELLNESS & RISHIKESH</div>
+    <div class="highlight-grid">
+      <div>
+        <h2>Slow down.<br><em>Look around.</em></h2>
+        <p>Enjoy the dedicated yoga space, open terraces and the atmosphere of Rishikesh. The Ganga, Ram Jhula, Triveni Ghat and other local experiences are close to the property.</p>
+        <a class="text-link open-enquiry-popup" href="#enquiry">Plan your visit <span>→</span></a>
+      </div>
+      <img src="assets/view.jpg" alt="Mountain and river view near Rubystone" loading="lazy">
+    </div>
+  </section>
+
+  <section class="section experience-section" id="yoga-aastha">
+    <div class="section-head center-head">
+      <div class="section-tag">YOGA & RISHIKESH</div>
+      <h2>Find your rhythm.<br><em>Follow the path.</em></h2>
+      <p>From mindful yoga and quiet wellness spaces to the riverside charm of Rishikesh, make time to slow down, breathe deeply and explore.</p>
+    </div>
+
+    <div class="experience-block">
+      <div class="experience-title">
+        <div class="section-tag">YOGA & WELLNESS</div>
+        <h3>Space to breathe, stretch & reset.</h3>
+      </div>
+      <div class="experience-grid yoga-grid">
+        <figure class="experience-card experience-card-large"><img src="assets/yoga-01.jpg" alt="Group yoga session in an indoor wellness space" loading="lazy"></figure>
+        <figure class="experience-card"><img src="assets/yoga-02.jpg" alt="Yoga session on an open terrace with mountain views" loading="lazy"></figure>
+        <figure class="experience-card"><img src="assets/yoga-04.jpg" alt="Outdoor yoga session overlooking Rishikesh" loading="lazy"></figure>
+        <figure class="experience-card"><img src="assets/yoga-06.jpg" alt="Yoga class with mountain views" loading="lazy"></figure>
+        <figure class="experience-card"><img src="assets/yoga-07.jpg" alt="Dedicated indoor yoga space" loading="lazy"></figure>
+      </div>
+    </div>
+
+    <div class="experience-block aastha-block">
+      <div class="experience-title">
+        <div class="section-tag">AASTHA PATH & RIVERSIDE RISHIKESH</div>
+        <h3>Walk by the Ganga. Look up at the hills.</h3>
+      </div>
+      <div class="experience-grid aastha-grid">
+        <figure class="experience-card experience-card-wide"><img src="assets/aastha-path-01.jpg" alt="Riverside path in Rishikesh" loading="lazy"></figure>
+        <figure class="experience-card"><img src="assets/aastha-path-02.jpg" alt="Rishikesh riverside at sunset" loading="lazy"></figure>
+        <figure class="experience-card"><img src="assets/aastha-path-03.jpg" alt="Riverside walkway and mountains in Rishikesh" loading="lazy"></figure>
+        <figure class="experience-card"><img src="assets/aastha-path-04.jpg" alt="Aastha Path riverside walkway in Rishikesh" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section location-strip" id="contact">
+    <div>
+      <div class="section-tag">FIND US</div>
+      <h2>In the heart of<br><em>Rishikesh.</em></h2>
+      <p>Unit No. 46, Sivananda Ashram Road, Shisham Jhari, Muni Ki Reti, Rishikesh, Uttarakhand 249137</p>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="tel:+919821005921">Call +91 98210 05921</a>
+        <a class="btn btn-outline-dark" href="mailto:info@rubystonehospitality.com">Email Us</a>
+      </div>
+    </div>
+    <div class="map-card">
+      <div class="map-placeholder">
+        <span>RISHIKESH</span>
+        <strong>Ganga • Mountains • Rubystone</strong>
+        <a href="https://www.google.com/maps/search/?api=1&query=Indira%20Nikunj%20Rubystone%20Exotic%20Rishikesh" target="_blank" rel="noopener">Open in Google Maps ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section enquiry" id="enquiry">
+    <div class="enquiry-card">
+      <div>
+        <div class="section-tag">PLAN YOUR EXPERIENCE</div>
+        <h2>Tell us what<br><em>you are planning.</em></h2>
+        <p>Use this form for a stay, wedding, celebration or general enquiry. It is ready to connect to the backend later.</p>
+      </div>
+      <form id="enquiryForm" autocomplete="off">
+        <div class="form-row">
+          <label>Name<input name="name" required placeholder="Your name"></label>
+          <label>Phone<input name="phone" required placeholder="+91"></label>
+        </div>
+        <div class="form-row">
+          <label>Email<input type="email" name="email" placeholder="you@example.com"></label>
+          <label>Enquiry Type
+            <select name="type" id="enquiryType" autocomplete="off" required>
+              <option value="" selected disabled>Select enquiry type</option>
+              <option value="Stay">Stay</option>
+              <option value="Wedding / Event">Wedding / Event</option>
+              <option value="Dining">Dining</option>
+              <option value="General">General</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Preferred Date<input type="date" name="date"></label>
+          <label>Guests<input type="number" min="1" name="guests" placeholder="Number of guests"></label>
+        </div>
+        <label>Message<textarea name="message" rows="4" placeholder="Tell us a little about your requirement"></textarea></label>
+        <button class="btn btn-primary" type="submit">Send Enquiry</button>
+        <p class="form-note" id="formNote"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="assets/rubystone-logo.png" alt="Indira Nikunj Rubystone Exotic">
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#about">About</a>
+      <a href="#stay">Stay</a>
+      <a href="#dining">Dining</a>
+      <a href="#weddings">Weddings</a>
+      <a href="#gallery">Gallery</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <span>Rubystone Hospitality</span>
+      <a href="tel:+919821005921">+91 98210 05921</a>
+      <a href="tel:+919821007125">+91 98210 07125</a>
+      <a href="mailto:info@rubystonehospitality.com">info@rubystonehospitality.com</a>
+      <span>Unit No. 46, Sivananda Ashram Road, Shisham Jhari, Muni Ki Reti, Rishikesh, Uttarakhand 249137</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Indira Nikunj Rubystone Exotic. All rights reserved.</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">‹</button>
+  <img id="lightboxImage" src="" alt="Expanded gallery image">
+  <button class="lightbox-next" id="lightboxNext" aria-label="Next">›</button>
+</div>
+
+<a class="whatsapp" href="https://wa.me/919821005921" target="_blank" rel="noopener" aria-label="Chat with Rubystone on WhatsApp"><img src="assets/whatsapp-icon.svg" alt="WhatsApp"></a>
+
+<script src="script.js"></script>
+
+
+<!-- Welcome Enquiry Popup -->
+<div class="enquiry-popup-overlay" id="welcomeEnquiryPopup" aria-hidden="true">
+  <div class="enquiry-popup" role="dialog" aria-modal="true" aria-labelledby="welcomeEnquiryTitle">
+    <button type="button" class="enquiry-popup-close" id="welcomeEnquiryClose" aria-label="Close enquiry form">&times;</button>
+    <div class="enquiry-popup-head">
+      <h2 id="welcomeEnquiryTitle">Plan Your Stay or Celebration</h2>
+      <p>Tell us what you're looking for and our team will get in touch with you.</p>
+    </div>
+    <div class="enquiry-popup-body">
+      <form id="welcomeEnquiryForm" autocomplete="off">
+        <div class="enquiry-popup-grid">
+          <div class="enquiry-popup-field">
+            <label for="welcomeName">Name</label>
+            <input id="welcomeName" name="name" type="text" placeholder="Your name" required>
+          </div>
+          <div class="enquiry-popup-field">
+            <label for="welcomePhone">Phone</label>
+            <input id="welcomePhone" name="phone" type="tel" placeholder="+91" required>
+          </div>
+          <div class="enquiry-popup-field">
+            <label for="welcomeEmail">Email</label>
+            <input id="welcomeEmail" name="email" type="email" placeholder="you@example.com">
+          </div>
+          <div class="enquiry-popup-field">
+            <label for="welcomeType">Enquiry Type</label>
+            <select id="welcomeType" name="enquiryType" required>
+              <option value="" selected disabled>Select enquiry type</option>
+              <option value="stay">Stay</option>
+              <option value="wedding">Wedding</option>
+              <option value="event">Event</option>
+            </select>
+          </div>
+          <div class="enquiry-popup-field">
+            <label for="welcomeDate">Preferred Date</label>
+            <input id="welcomeDate" name="preferredDate" type="date">
+          </div>
+          <div class="enquiry-popup-field">
+            <label for="welcomeGuests">Guests</label>
+            <input id="welcomeGuests" name="guests" type="number" min="1" placeholder="Number of guests">
+          </div>
+          <div class="enquiry-popup-field full">
+            <label for="welcomeMessage">Message</label>
+            <textarea id="welcomeMessage" name="message" placeholder="Tell us a little about your requirement"></textarea>
+          </div>
+        </div>
+        <button class="enquiry-popup-submit" type="submit">Send Enquiry</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const popup = document.getElementById("welcomeEnquiryPopup");
+  const closeBtn = document.getElementById("welcomeEnquiryClose");
+  const form = document.getElementById("welcomeEnquiryForm");
+
+  if (!popup) return;
+
+  function openPopup() {
+    popup.classList.add("is-open");
+    popup.setAttribute("aria-hidden", "false");
+    document.body.classList.add("enquiry-popup-open");
+
+    const type = document.getElementById("welcomeType");
+    if (type) {
+      type.selectedIndex = 0;
+      type.value = "";
+    }
+  }
+
+  function closePopup() {
+    popup.classList.remove("is-open");
+    popup.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("enquiry-popup-open");
+  }
+
+  // Open the same enquiry popup from all enquiry CTAs instead of scrolling to the enquiry section.
+  document.querySelectorAll(".open-enquiry-popup").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      openPopup();
+    });
+  });
+
+  closeBtn && closeBtn.addEventListener("click", closePopup);
+
+  popup.addEventListener("click", function (e) {
+    if (e.target === popup) closePopup();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && popup.classList.contains("is-open")) {
+      closePopup();
+    }
+  });
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      const get = key => String(data.get(key) || "").trim();
+      const message = [
+        "Hello Rubystone Hospitality,",
+        "",
+        "I would like to make an enquiry.",
+        "",
+        `Name: ${get("name")}`,
+        `Phone: ${get("phone")}`,
+        `Email: ${get("email") || "Not provided"}`,
+        `Enquiry Type: ${get("enquiryType") || "Not provided"}`,
+        `Preferred Date: ${get("preferredDate") || "Not provided"}`,
+        `Guests: ${get("guests") || "Not provided"}`,
+        `Message: ${get("message") || "Not provided"}`
+      ].join("\n");
+
+      const whatsappUrl = `https://wa.me/919821005921?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+      form.reset();
+      const type = document.getElementById("welcomeType");
+      if (type) {
+        type.selectedIndex = 0;
+        type.value = "";
+      }
+      closePopup();
+    });
+  }
+
+  // Show on every fresh visit after a short delay.
+  window.addEventListener("load", function () {
+    setTimeout(openPopup, 1200);
+  });
+})();
+</script>
+
+</body>
+</html>
