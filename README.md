@@ -1,7 +1,5 @@
 # Indira Nikunj Rubystone Exotic — Website V7
 
-This version uses the uploaded transparent Rubystone logo throughout the site and adds a dedicated Weddings & Celebrations section with a "See More Images" gallery and full-screen image viewer.
-
 ## Included
 - `index.html` — complete static homepage
 - `style.css` — responsive luxury hotel styling
